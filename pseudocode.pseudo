@@ -1,0 +1,143 @@
+SETUP project structure
+  CREATE components: TaskForm, TaskList, TaskItem, Filter, Profile
+  CREATE reusable components: InputField, Button, Modal, Notification
+  CREATE pages: Registration, Login, Home, Profile, CompletedTasks
+  CREATE contexts: AuthContext, TaskContext
+  CREATE styles folder and add styles.css
+  CREATE main app file (App.js) and index file (index.js)
+
+SETUP AuthContext
+  INITIALIZE AuthContext with default value null
+  CREATE AuthProvider component
+    DEFINE state for user
+    DEFINE login function to set user
+    DEFINE logout function to clear user
+    RETURN AuthContext.Provider with value containing user, login, logout
+  END
+
+SETUP TaskContext
+  INITIALIZE TaskContext with default value empty array
+  CREATE TaskProvider component
+    DEFINE state for tasks
+    DEFINE functions: addTask, updateTask, deleteTask, getTasks, completeTask
+    RETURN TaskContext.Provider with value containing tasks and functions
+  END
+
+CREATE Reusable Components
+
+InputField Component
+  RENDER input field with props for type, placeholder, value, onChange
+END
+
+Button Component
+  RENDER button with props for text, onClick, style
+END
+
+Modal Component
+  RENDER modal with props for title, content, isOpen, onClose
+END
+
+Notification Component
+  RENDER notification with props for message, type, isVisible
+END
+
+CREATE Main Components
+
+TaskForm Component
+  RENDER form with InputField components: task name, definition, priority, status, due date
+  RENDER Button component for submit
+  HANDLE form submission to add/update task
+    IF editing
+      CALL updateTask from TaskContext
+    ELSE
+      CALL addTask from TaskContext
+    ENDIF
+  END
+
+TaskList Component
+  GET tasks from TaskContext
+  RENDER TaskItem for each task
+END
+
+TaskItem Component
+  DISPLAY task details using InputField components
+  RENDER Button components for edit, delete, mark as completed
+  HANDLE button clicks to call corresponding functions from TaskContext
+END
+
+Filter Component
+  RENDER filter options for due date, priority, status using InputField components
+  HANDLE filter change to update task list
+END
+
+Profile Component
+  DISPLAY user details using InputField components
+  RENDER form with Button component to update profile
+  HANDLE form submission to update user details
+END
+
+SETUP Pages
+
+Registration Page
+  RENDER registration form with InputField components
+  RENDER Button component for submit
+  HANDLE form submission to register user
+END
+
+Login Page
+  RENDER login form with InputField components
+  RENDER Button component for submit
+  HANDLE form submission to log in user
+END
+
+Home Page
+  RENDER TaskForm, TaskList, navigation to Profile, CompletedTasks using Button components
+  ENSURE only accessible when logged in
+END
+
+Profile Page
+  RENDER Profile component
+END
+
+CompletedTasks Page
+  RENDER list of completed tasks
+END
+
+SETUP Routing and Navigation
+  SET up routes with `react-router-dom`
+    DEFINE routes for Registration, Login, Home, Profile, CompletedTasks
+    IMPLEMENT guarded route for Home page
+END
+
+IMPLEMENT CRUD Operations
+
+Add Task
+  IN TaskForm handle form submission
+  CALL addTask from TaskContext
+  SAVE to localStorage
+END
+
+View Tasks
+  IN TaskList retrieve tasks from TaskContext
+  DISPLAY tasks
+END
+
+Update Task
+  IN TaskItem handle edit button click
+  POPULATE TaskForm with task details
+  CALL updateTask from TaskContext
+  UPDATE localStorage
+END
+
+Delete Task
+  IN TaskItem handle delete button click
+  CALL deleteTask from TaskContext
+  REMOVE from localStorage
+END
+
+Mark Task as Completed
+  IN TaskItem handle complete button click
+  CALL completeTask from TaskContext
+  MOVE task to completed tasks list
+  SAVE to localStorage
+END
