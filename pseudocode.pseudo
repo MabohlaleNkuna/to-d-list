@@ -4,7 +4,7 @@ SETUP project structure
   CREATE pages: Registration, Login, Home, Profile, CompletedTasks
   CREATE contexts: AuthContext, TaskContext
   CREATE styles folder and add styles.css
-  CREATE main app file (App.js) and index file (index.js)
+  iui
 
 SETUP AuthContext
   INITIALIZE AuthContext with default value null

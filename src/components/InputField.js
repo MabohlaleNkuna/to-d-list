@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 const InputField = ({ type, placeholder, value, onChange }) => {
   return (
@@ -13,3 +13,4 @@ const InputField = ({ type, placeholder, value, onChange }) => {
 };
 
 export default InputField;
+*/
