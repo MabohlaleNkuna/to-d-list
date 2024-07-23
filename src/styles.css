@@ -55,7 +55,7 @@ body {
   
   nav a {
     text-decoration: none;
-    color: #66b2ff;
+    color: rgb(195, 6, 6);
     font-weight: bold;
   }
   
@@ -64,7 +64,7 @@ body {
   }
   
   button {
-    background-color: #66b2ff;
+    background-color: rgb(117, 2, 2);
     color: white;
     border: none;
     padding: 5px 10px;
@@ -74,7 +74,7 @@ body {
   }
   
   button:hover {
-    background-color: #3399ff;
+    background-color: rgb(238, 136, 136);
   }
   
   
@@ -144,7 +144,7 @@ body {
   }
   
   button[type="submit"]:hover {
-    background-color: #3399ff;
+    background-color: rgb(243, 105, 105);
   }
   
   .task-list {
