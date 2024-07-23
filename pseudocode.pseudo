@@ -130,4 +130,4 @@ END
 // Entry Point (index.js)
 Import necessary modules and styles
 Render App component into the DOM
-END
+END.

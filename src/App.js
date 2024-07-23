@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import './styles.css'; // Ensure this imports the styles you modified
+import './styles.css'; 
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
