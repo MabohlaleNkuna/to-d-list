@@ -1,143 +1,133 @@
-SETUP project structure
-  CREATE components: TaskForm, TaskList, TaskItem, Filter, Profile
-  CREATE reusable components: InputField, Button, Modal, Notification
-  CREATE pages: Registration, Login, Home, Profile, CompletedTasks
-  CREATE contexts: AuthContext, TaskContext
-  CREATE styles folder and add styles.css
-  iui
+// TaskForm Component
+Function TaskForm(addTask, taskToEdit, setTaskToEdit)
+    Initialize state 'task' with default values
+    UseEffect to set 'task' if 'taskToEdit' is provided
 
-SETUP AuthContext
-  INITIALIZE AuthContext with default value null
-  CREATE AuthProvider component
-    DEFINE state for user
-    DEFINE login function to set user
-    DEFINE logout function to clear user
-    RETURN AuthContext.Provider with value containing user, login, logout
-  END
+    Function handleChange(event)
+        Update 'task' state with input values
+    END
 
-SETUP TaskContext
-  INITIALIZE TaskContext with default value empty array
-  CREATE TaskProvider component
-    DEFINE state for tasks
-    DEFINE functions: addTask, updateTask, deleteTask, getTasks, completeTask
-    RETURN TaskContext.Provider with value containing tasks and functions
-  END
+    Function handleSubmit(event)
+        Prevent default form submission
+        If taskToEdit exists THEN
+            Call addTask with 'task' to update task
+            Clear 'taskToEdit'
+        ELSE
+            Call addTask with 'task' to add new task
+            Reset 'task' to default values
+        END
+    END
 
-CREATE Reusable Components
-
-InputField Component
-  RENDER input field with props for type, placeholder, value, onChange
+    Return form element with input fields and submit button
 END
 
-Button Component
-  RENDER button with props for text, onClick, style
+// TaskList Component
+Function TaskList(tasks, onUpdateTask, onDeleteTask)
+    Return div element with headers for task attributes
+    ForEach task in tasks
+        Render task details in a row
+        Add Update and Delete buttons
+        Attach onUpdateTask and onDeleteTask to respective buttons
+    END
 END
 
-Modal Component
-  RENDER modal with props for title, content, isOpen, onClose
+// UserForm Component
+Function UserForm(user, handleUserChange, handleUserSubmit)
+    Return form element with input fields for user details
+    Attach handleUserChange to input fields
+    Attach handleUserSubmit to form submission
 END
 
-Notification Component
-  RENDER notification with props for message, type, isVisible
-END
+// Header Component
+Function Header(isAuthenticated, setIsAuthenticated)
+    Function handleLogout()
+        Remove auth data from localStorage
+        Set isAuthenticated to false
+    END
 
-CREATE Main Components
-
-TaskForm Component
-  RENDER form with InputField components: task name, definition, priority, status, due date
-  RENDER Button component for submit
-  HANDLE form submission to add/update task
-    IF editing
-      CALL updateTask from TaskContext
+    Return header element with navigation links
+    If isAuthenticated is true THEN
+        Show Home, Profile links and Logout button
     ELSE
-      CALL addTask from TaskContext
-    ENDIF
-  END
-
-TaskList Component
-  GET tasks from TaskContext
-  RENDER TaskItem for each task
+        Show Login and Register links
+    END
 END
 
-TaskItem Component
-  DISPLAY task details using InputField components
-  RENDER Button components for edit, delete, mark as completed
-  HANDLE button clicks to call corresponding functions from TaskContext
+// Home Page
+Function Home()
+    Get tasks from localStorage or initialize with an empty array
+    Initialize state for tasks and taskToEdit
+
+    Function addTask(task)
+        If taskToEdit exists THEN
+            Update task in tasks array
+        ELSE
+            Add new task to tasks array
+        END
+        Save tasks to localStorage
+    END
+
+    Function updateTask(task)
+        Set taskToEdit with the selected task
+    END
+
+    Function deleteTask(taskName)
+        Remove task from tasks array by name
+        Save updated tasks to localStorage
+    END
+
+    Return TaskForm and TaskList components with respective props
 END
 
-Filter Component
-  RENDER filter options for due date, priority, status using InputField components
-  HANDLE filter change to update task list
+// Login Page
+Function Login(setIsAuthenticated)
+    Initialize state for user credentials
+
+    Function handleLogin(event)
+        Prevent default form submission
+        Authenticate user credentials
+        If successful THEN
+            Set isAuthenticated to true
+            Save auth data to localStorage
+        ELSE
+            Show error message
+        END
+    END
+
+    Return UserForm component with handleLogin
 END
 
-Profile Component
-  DISPLAY user details using InputField components
-  RENDER form with Button component to update profile
-  HANDLE form submission to update user details
+// Logout Page
+Function Logout(setIsAuthenticated)
+    Call handleLogout function from Header component
+    Redirect to Login page
 END
 
-SETUP Pages
+// Register Page
+Function Register()
+    Initialize state for new user details
 
-Registration Page
-  RENDER registration form with InputField components
-  RENDER Button component for submit
-  HANDLE form submission to register user
+    Function handleRegister(event)
+        Prevent default form submission
+        Save new user details to the database
+        Redirect to Login page
+    END
+
+    Return UserForm component with handleRegister
 END
 
-Login Page
-  RENDER login form with InputField components
-  RENDER Button component for submit
-  HANDLE form submission to log in user
+// App Component
+Function App()
+    Initialize state for isAuthenticated
+
+    UseEffect to check localStorage for auth data on mount
+
+    Return Router with Header and Routes
+    Define routes for Home, Login, Logout, and Register pages
+    Use Navigate to redirect based on isAuthenticated state
 END
 
-Home Page
-  RENDER TaskForm, TaskList, navigation to Profile, CompletedTasks using Button components
-  ENSURE only accessible when logged in
-END
-
-Profile Page
-  RENDER Profile component
-END
-
-CompletedTasks Page
-  RENDER list of completed tasks
-END
-
-SETUP Routing and Navigation
-  SET up routes with `react-router-dom`
-    DEFINE routes for Registration, Login, Home, Profile, CompletedTasks
-    IMPLEMENT guarded route for Home page
-END
-
-IMPLEMENT CRUD Operations
-
-Add Task
-  IN TaskForm handle form submission
-  CALL addTask from TaskContext
-  SAVE to localStorage
-END
-
-View Tasks
-  IN TaskList retrieve tasks from TaskContext
-  DISPLAY tasks
-END
-
-Update Task
-  IN TaskItem handle edit button click
-  POPULATE TaskForm with task details
-  CALL updateTask from TaskContext
-  UPDATE localStorage
-END
-
-Delete Task
-  IN TaskItem handle delete button click
-  CALL deleteTask from TaskContext
-  REMOVE from localStorage
-END
-
-Mark Task as Completed
-  IN TaskItem handle complete button click
-  CALL completeTask from TaskContext
-  MOVE task to completed tasks list
-  SAVE to localStorage
+// Entry Point (index.js)
+Import necessary modules and styles
+Render App component into the DOM
 END
