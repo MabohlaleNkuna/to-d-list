@@ -199,17 +199,36 @@ body {
     background-color: #222;
     color: #f0f0f0;
     border: 1px solid #333;
-    margin-left: 175px;
+    margin-left: 330px;
   }
   
   
-  @media (max-width: 1200px) {
-    .task-list {
-      grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 1464px) {
+    #priority-filter {
+      margin-left: 112px;
     }
   }
-
-
+  @media (max-width: 1200px) {
+    .task-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 1196px) {
+    #priority-filter {
+      margin-left: 10px;
+    }
+  }
+  @media (max-width: 1245px) {
+    #priority-filter {
+      margin-left: 10px;
+    }
+  }
+  @media (max-width: 899px) {
+    #priority-filter {
+      margin-left: 40px;
+    }
+  }
+ 
   @media (max-width: 900px) {
     .task-list {
       grid-template-columns: repeat(3, 1fr);
@@ -256,4 +275,21 @@ body {
       padding: 8px;
     }
   }
+  .logout-container {
+    text-align: center;
+    padding: 20px;
+  }
   
+  .logout-header {
+    background-color: #8B0000; 
+    color: white;
+    padding: 20px;
+    font-size: 2em;
+    border-radius: 8px;
+  }
+  
+  .logout-message {
+    color: red;
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
