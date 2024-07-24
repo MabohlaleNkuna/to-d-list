@@ -12,7 +12,6 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log('Checking local storage for auth status');
     const auth = localStorage.getItem('auth');
     setIsAuthenticated(!!auth);
   }, []);
@@ -22,12 +21,11 @@ const App = () => {
       <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <div className="app-container">
         <Routes>
-          {/* Redirect root path to register page */}
           <Route path="/" element={<Navigate to="/register" />} />
-        <Route path="/home" element={isAuthenticated ? <Home /> :<Logout/>} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/home" element={isAuthenticated ? <Home /> : <Logout />} />
+          <Route path="/register" element={isAuthenticated ? <Navigate to="/home" /> : <Register />} />
           <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         </Routes>
       </div>
     </Router>
