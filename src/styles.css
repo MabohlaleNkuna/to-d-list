@@ -143,7 +143,7 @@ body {
   }
   
   button[type="submit"]:hover {
-    background-color: rgb(243, 105, 105);
+    background-color: rgba(248, 3, 3, 0.568);
   }
   
   .task-list {
