@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    
-    localStorage.setItem('auth', 'true');
-    setIsAuthenticated(true);
-    navigate('/home');
+    setLoading(true);
+    setTimeout(() => {
+      localStorage.setItem('auth', 'true');
+      setIsAuthenticated(true);
+      navigate('/home');
+    }, 1000); // Simulating a delay
   };
 
   return (
@@ -30,7 +33,9 @@ const Login = ({ setIsAuthenticated }) => {
         placeholder="Password"
         required
       />
-      <button type="submit">Login</button>
+      <button type="submit" disabled={loading}>
+        {loading ? 'Logging in...' : 'Login'}
+      </button>
     </form>
   );
 };
