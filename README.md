@@ -40,8 +40,11 @@ Follow these steps to get the app up and running:
     ```bash
     npm start
     ```
-
 The app will run on [http://localhost:3000](http://localhost:3000) in your browser.
+
+
+**Hosted Link**: [to-do-list-mabohlale.netlify.app](https://to-do-list-mabohlale.netlify.app)
+
 
 ## Usage
 

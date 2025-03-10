@@ -4,13 +4,16 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // For demonstration purposes, assuming successful registration
-    localStorage.setItem('auth', 'true');
-    navigate('/'); // Redirect to home after registration
+    setLoading(true);
+    setTimeout(() => {
+      localStorage.setItem('auth', 'true');
+      navigate('/');
+    }, 1000); // Simulating a delay
   };
 
   return (
@@ -29,7 +32,9 @@ const Register = () => {
         placeholder="Password"
         required
       />
-      <button type="submit">Register</button>
+      <button type="submit" disabled={loading}>
+        {loading ? 'Registering...' : 'Register'}
+      </button>
     </form>
   );
 };
